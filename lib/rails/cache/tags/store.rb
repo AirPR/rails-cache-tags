@@ -41,7 +41,7 @@ module Rails
           return if result.nil?
           entry = tag_set.check(result)
 
-          if entry
+          if !entry.nil?
             entry
           else
             delete(name, options)
@@ -90,7 +90,9 @@ module Rails
             result
           else # only :read occured
             # read occured, and result is fresh
-            if (entry = tag_set.check(result))
+            entry = tag_set.check(result)
+
+            if !entry.nil?
               entry
             else # result is stale
               delete(name, options)
